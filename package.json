@@ -19,6 +19,7 @@
     "gravatar-api": "^1.5.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.21",
+    "otplib": "^12.0.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-camera": "^3.44.3",

@@ -21,10 +21,14 @@ import {Header, StyledText} from '../common'
 import {colors} from '../styles'
 import ProgressBar from '../common/ProgressBar'
 import { useIsFocused } from '@react-navigation/native';
+//import { authenticator } from 'otplib'
+
+
+const OTP_REGEXP = /otpauth:\/\/([ht]otp)\/(?:[a-zA-Z0-9%]+:)?([^\?]+)\?secret=([0-9A-Za-z]+)(?:.*(?:<?counter=)([0-9]+))?/
 
 const screen = Dimensions.get("screen");
 
-const LoadingScreen = () => <div>loading...</div>
+const LoadingScreen = () => <Text>loading...</Text>
 
 const Scanner = (props) => {
   const isFocused = useIsFocused();
@@ -58,71 +62,53 @@ class ScannerInner extends React.PureComponent {
     console.log('1')
     console.log('e', e)
     try {
-      let data = JSON.parse(e.data)
+      console.log('GOT DATA!!!', e.data)
 
-      console.log('GOT DATA!!!', data)
+      let match = e.data.match(OTP_REGEXP)
+      console.log('match', match)
 
-      //TODO
-      if (data.key && data.pub) {
+      let matchUser = match[2].split(':')
+      console.log('matchUser', matchUser)
+
+      if (match) {
         const user = {
-          id: data.id,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          email: data.email,
+          id: matchUser[1],
+          company: matchUser[0],
+          email: matchUser[1],
+          secret: match[3],
         }
 
         //save to ls keys from registration
         const ls = new LocalStorage();
+
+        let users = [...this.props.userAccounts, user];
+        ls.save('accounts', users);
+        if (this.props.addUserAccount instanceof Function) {
+          this.props.addUserAccount(user)
+        }
+
         let encryptedKeys = CryptoJS.AES.encrypt(e.data, pinCode)
         ls.save('isRegistered', encryptedKeys.toString())
         ls.save(`keys-${user.id}`, encryptedKeys.toString())
           .then(() => {
             //generate user otp
             try {
-              // const pair = new Pair(e.data)
-              // return navigation.dispatch({
-              //   key: 'registration',
-              //   type: 'ReplaceLastScreen',
-              //   routeName: 'registration',
-              //   params: {user, otp: pair.getOtp()}
-              // })
-              console.log('then')
+              navigation.navigate('IndexScreen')
             } catch(e) {
-              console.log('catch0', e)
-              return navigation.dispatch({
-                key: 'errorScreen',
-                type: 'ReplaceLastScreen',
-                routeName: 'errorScreen',
-                params: {message: errors.SCAN_ERROR}
-              })
+              navigation.navigate('ErrorScreen', {message: errors.SCAN_ERROR})
+              return
             }
           })
           .catch(err => {
-            console.log('catch1', err)
-            return navigation.dispatch({
-              key: 'errorScreen',
-              type: 'ReplaceLastScreen',
-              routeName: 'errorScreen',
-              params: {message: errors.SCAN_ERROR}
-            })
+            navigation.navigate('ErrorScreen', {message: errors.SCAN_ERROR})
           })
       } else {
         //show error
-        return navigation.dispatch({
-          key: 'errorScreen',
-          type: 'ReplaceLastScreen',
-          routeName: 'errorScreen',
-          params: {message: errors.INVALID_QRCODE}
-        })
+        navigation.navigate('ErrorScreen', {message: errors.INVALID_QRCODE})
       }
     } catch(e) {
       console.log('catch2', e)
-      return navigation.dispatch({
-        key: 'errorScreen',
-        type: 'ReplaceLastScreen',
-        routeName: 'errorScreen',
-        params: {message: errors.INVALID_QRCODE}
-      })
+      navigation.navigate('ErrorScreen', {message: errors.INVALID_QRCODE})
     }
   }
 

@@ -77,7 +77,7 @@ const makeWithHandlers = withHandlers({
             type: 'delete',
             onPress: () => {
               Alert.alert(
-                `Deleting user ${elem.first_name}`,
+                `Deleting user ${elem.email}`,
                 'Are you sure you want to proceed?',
                 [
                   {text: 'Cancel', onPress: () => {}, style: 'cancel'},
@@ -107,7 +107,7 @@ const makeWithHandlers = withHandlers({
 
         return(
           <Swipeout
-            key={`${IDX}${elem.id}${elem.first_name}`}
+            key={`${IDX}${elem.id}${elem.email}`}
             close={true}
             right={swipeoutBtns}
             style={styles.swipeContainer}
@@ -132,7 +132,9 @@ const makeWithHandlers = withHandlers({
                          })}} />
                 </View>
                 <View style={styles.NameContainer}>
-                  <StyledText customStyles={styles.NameStyle}>{`${elem.last_name} ${elem.first_name}`}</StyledText>
+                  <StyledText customStyles={styles.CredentialsStyle}>{elem.email}</StyledText>
+                  <StyledText customStyles={styles.NameStyle}>{elem.secret}</StyledText>
+                  <StyledText customStyles={styles.CredentialsStyle}>{elem.company}</StyledText>
                 </View>
                 <View style={styles.ArrowContainer}>
                   <Image source={arrowIcon} style={styles.ArrowStyle} />
@@ -198,6 +200,12 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: 21,
     letterSpacing: 1
+  },
+  CredentialsStyle: {
+    fontWeight: '400',
+    color: colors.font,
+    fontSize: 14,
+    letterSpacing: 0
   },
   registrationBtnTheme: {
     borderColor: colors.theme,

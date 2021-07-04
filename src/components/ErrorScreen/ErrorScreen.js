@@ -20,7 +20,7 @@ const ErrorScreen = ({onPress, message, navigation}) => {
           <View style={styles.SuccessContainer} />
         </View>
         <View style={styles.btnContainerStyle}>
-          <Button onPress={onPress ? onPress : () => navigation.navigate('HomeScreen')}>
+          <Button onPress={onPress ? onPress : () => navigation.navigate('IndexScreen')}>
             <StyledText>OK</StyledText>
           </Button>
         </View>

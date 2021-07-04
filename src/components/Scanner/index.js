@@ -5,20 +5,22 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {compose, withState, lifecycle} from 'recompose'
-import {setTransactionData} from '../../actions/state'
+import {addUserAccount, setTransactionData} from '../../actions/state';
 import Scanner from './Scanner'
 
 function mapStateToProps(state) {
   const pinCode = state.getIn(['coreReducer', 'pinCode'], null)
-
+  const userAccounts = state.getIn(['coreReducer', 'userAccounts'], []);
   return {
-    pinCode
+    pinCode,
+    userAccounts
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setTransactionData: data => dispatch( setTransactionData(data))
+    setTransactionData: data => dispatch( setTransactionData(data)),
+    addUserAccount: user => dispatch(addUserAccount(user))
   }
 }
 

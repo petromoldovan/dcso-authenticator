@@ -75,7 +75,7 @@ class Login extends React.Component {
         ls.load('isRegistered')
           .then(keys => {
             //User has accounts
-            console.log("tries to decryot keys", keys)
+            console.log("tries to decrypt keys", keys)
             const bytes  = CryptoJS.AES.decrypt(JSON.parse(keys), this.props.pin);
             const encodedKeys = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
             if (encodedKeys && encodedKeys.key) {
