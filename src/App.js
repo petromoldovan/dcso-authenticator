@@ -1,12 +1,11 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import {View, StyleSheet} from 'react-native'
-//import {SafeAreaView} from 'react-navigation'
 import store from './store/store'
 import {AppNavigator} from './router/router'
-import {colors} from "./components/styles/index";
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import {colors} from "./components/styles/index"
+import 'react-native-gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
 
 
 const App = () => (
@@ -15,9 +14,6 @@ const App = () => (
       <NavigationContainer>
         <AppNavigator/>
       </NavigationContainer>
-      {/*<SafeAreaView style={styles.flex}>*/}
-      {/*  <AppNavigator />*/}
-      {/*</SafeAreaView>*/}
     </View>
   </Provider>
 )
