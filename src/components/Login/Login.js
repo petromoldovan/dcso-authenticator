@@ -102,7 +102,7 @@ class Login extends React.Component {
     if (this.props.setPinCode instanceof Function)
       this.props.setPinCode(this.props.pin)
 
-    this.props.navigation.navigate('index', {...params})
+    this.props.navigation.navigate('IndexScreen', {...params})
   }
 
   onEnterPin = (i) => {

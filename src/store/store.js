@@ -1,5 +1,5 @@
 import ReduxThunk from 'redux-thunk';
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import {createLogger} from 'redux-logger';
 
 import coreReducer from '../reducers';
@@ -18,7 +18,7 @@ if (shouldLog) {
 
 const store = configureStore({
   reducer: coreReducer,
-  //middleware: applyMiddleware.apply(undefined, middlewares)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),
 });
 
 export default store;
