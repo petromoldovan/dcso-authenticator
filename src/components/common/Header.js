@@ -28,11 +28,7 @@ const Header = ({hasBackButton, title, transparent, navigation, onBeforeReturn, 
         hasBackButton
           ? <TouchableOpacity style={imgCont} onPress={() => {
             if (onBeforeReturn) onBeforeReturn()
-            return navigation.dispatch({
-              key: 'index',
-              type: 'ReplaceLastScreen',
-              routeName: 'index'
-            })
+            navigation.navigate('IndexScreen')
           }} >
             <Image style={styles.imgStyle} source={arrowIcon} />
           </TouchableOpacity>

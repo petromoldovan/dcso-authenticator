@@ -14,12 +14,7 @@ const makeWithLifecycle = lifecycle({
     let startProgress = setInterval(() => {
       if (this.props.progress > 1.01) {
         const {navigation} = this.props
-        navigation.dispatch({
-          key: 'errorScreen',
-          type: 'ReplaceLastScreen',
-          routeName: 'errorScreen',
-          params: {message: errors.SCAN_ERROR}
-        })
+        navigation.navigate('ErrorScreen', {message: errors.SCAN_ERROR})
         clearInterval(startProgress)
       }
       const newValue = parseFloat(this.props.progress) + 0.01

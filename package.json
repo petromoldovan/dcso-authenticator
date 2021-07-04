@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-camera": "^3.44.3",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-progress": "^4.1.2",
     "react-native-reanimated": "^2.2.0",

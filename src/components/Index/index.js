@@ -54,13 +54,7 @@ const makeWithHandlers = withHandlers({
     return(
       <TouchableOpacity
         style={registrationBtnContainer}
-        onPress={() => Platform.OS === "android" ?
-          navigation.dispatch({
-            key: 'scanner',
-            type: 'ReplaceLastScreen',
-            routeName: 'scanner'
-          }) :
-          navigation.navigate('scanner')}>
+        onPress={() => navigation.navigate('ScannerScreen')}>
         <View style={styles.btnRegistration}>
           <View style={styles.flex} />
           <View style={styles.RegistrationIcon}>
